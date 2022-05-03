@@ -6,6 +6,8 @@ export interface NewsFilter {
   onlyNew?: boolean
   author?: number
   header?: string
+  offset?: number
+  limit?: number
 }
 
 export type NewsSortBy = {

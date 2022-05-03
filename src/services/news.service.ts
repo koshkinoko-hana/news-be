@@ -26,8 +26,8 @@ export default class NewsService {
     return news
   }
 
-  public static getNewsByUser(authData: AuthData) {
-    const user = Storage.users.get(authData.userId)
+  public static getNewsByUser(userId: number) {
+    const user = Storage.users.get(userId)
     const news = Storage.publishedNews
       .filter(item => user.tags.find(tag => item.tags.has(tag)))
       .filter(item => !user.readNewsList.has(item.id))
@@ -73,7 +73,7 @@ export default class NewsService {
       news = news.filter(item => item.header.includes(req.header))
     }
 
-    const { offset, limit } = req
+    const { offset = 0, limit = 20 } = req
 
     const res = news.sort((a,b) => {
       const [key, order] = [req.field, req.order]

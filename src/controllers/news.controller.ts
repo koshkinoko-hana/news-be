@@ -17,6 +17,11 @@ router.get('/my', (req, res) => {
   res.status(200).json(news)
 })
 
+router.get('/all', (req, res) => {
+  const news = NewsService.getAllNews(true)
+  res.status(200).json(news)
+})
+
 router.get('/tags', (req, res) => {
   const tags = NewsService.getTags()
   res.status(200).json(tags)

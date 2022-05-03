@@ -24,12 +24,21 @@ router.get('/users', (req, res) => {
   res.status(200).json(AdminService.getUsers())
 })
 
+router.get('/user/:id/news', (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) {
+    throw new createHttpError.BadRequest('Required: id')
+  }
+  res.status(200).json(NewsService.getNewsByUser(id))
+})
+
 router.post('/user/:id', (req, res) => {
   const id = Number(req.params.id)
   const role = Number(req.query.role)
   if(!id || !role) {
     throw new createHttpError.BadRequest('Required: id, role')
   }
+  AdminService.updateUserRole(id, role)
   res.sendStatus(200)
 })
 
@@ -59,6 +68,13 @@ router.delete('/news/:id', (req, res) => {
     throw new createHttpError.BadRequest('Required: id')
   }
   AdminService.deleteNews(id)
+  res.sendStatus(200)
+})
+
+router.post<any, any, any, string[]>('/news/tags', (req, res) => {
+
+  const tags = req.body
+  AdminService.updateTags(tags)
   res.sendStatus(200)
 })
 

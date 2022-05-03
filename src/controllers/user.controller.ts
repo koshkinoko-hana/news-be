@@ -11,10 +11,8 @@ router.use(function timeLog(req, res, next) {
 })
 
 router.get('/authors', (req, res) => {
-  const token = req.header('token')
-  const authData = AuthService.checkAuthorized(token)
-  const news = NewsService.getMyNews(authData)
-  res.status(200).json(news)
+  const authors = UserService.getAuthors()
+  res.status(200).json(authors)
 })
 
 router.get('/me', (req, res) => {

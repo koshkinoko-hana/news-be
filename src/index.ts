@@ -10,7 +10,7 @@ import Storage from './services/storage'
 
 const port = 3000
 
-Storage.addDefaultAdmin()
+Storage.init()
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

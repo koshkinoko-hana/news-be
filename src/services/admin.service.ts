@@ -36,6 +36,10 @@ export default class AdminService {
     oldNews.description = news.description
   }
 
+  public static updateTags(tags: string[]) {
+    Storage.tags = new Set(tags)
+  }
+
   public static deleteNews(id: number) {
     Storage.news = Storage.news.filter(item => item.id !== id)
   }
