@@ -30,7 +30,7 @@ router.post('/login', (req, res) => {
 router.post('/logout', (req, res) => {
   const token = req.header('token')
   AuthService.logout(token)
-  res.send(200)
+  res.send(204)
 })
 
 export default router

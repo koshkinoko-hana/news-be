@@ -14,9 +14,7 @@ router.use(function timeLog(req, res, next) {
 
 router.use(function checkAdmin(req, res, next) {
   const token = req.header('token')
-  if(!AuthService.checkAuthorizedAdmin(token)){
-    throw new createHttpError.Forbidden()
-  }
+  AuthService.checkAuthorizedAdmin(token)
   next()
 })
 
@@ -34,12 +32,12 @@ router.get('/user/:id/news', (req, res) => {
 
 router.post('/user/:id', (req, res) => {
   const id = Number(req.params.id)
-  const role = Number(req.query.role)
+  const role = req.body.role
   if(!id || !role) {
     throw new createHttpError.BadRequest('Required: id, role')
   }
   AdminService.updateUserRole(id, role)
-  res.sendStatus(200)
+  res.sendStatus(204)
 })
 
 router.delete('/user/:id', (req, res) => {
@@ -48,18 +46,7 @@ router.delete('/user/:id', (req, res) => {
     throw new createHttpError.BadRequest('Required: id')
   }
   AdminService.deleteUser(id)
-  res.sendStatus(200)
-})
-
-
-router.put<{id: number}, any, any, UpdateNewsRequest>('/news/:id', (req, res) => {
-  const id = Number(req.params.id)
-  if(!id) {
-    throw new createHttpError.BadRequest('Required: id')
-  }
-  const body = req.body
-  AdminService.updateNews(id, body)
-  res.sendStatus(200)
+  res.sendStatus(204)
 })
 
 router.delete('/news/:id', (req, res) => {
@@ -68,14 +55,24 @@ router.delete('/news/:id', (req, res) => {
     throw new createHttpError.BadRequest('Required: id')
   }
   AdminService.deleteNews(id)
-  res.sendStatus(200)
+  res.sendStatus(204)
 })
 
 router.post<any, any, any, string[]>('/news/tags', (req, res) => {
 
   const tags = req.body
   AdminService.updateTags(tags)
-  res.sendStatus(200)
+  res.sendStatus(204)
+})
+
+router.post<{id: number}, any, any, UpdateNewsRequest>('/news/:id', (req, res) => {
+  const id = Number(req.params.id)
+  if(!id) {
+    throw new createHttpError.BadRequest('Required: id')
+  }
+  const body = req.body
+  AdminService.updateNews(id, body)
+  res.sendStatus(204)
 })
 
 export default router

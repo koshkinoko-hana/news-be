@@ -31,7 +31,7 @@ router.post<{}, any, any, {ids: string}>('/read', (req, res) => {
   const token = req.header('token')
   const authData = AuthService.checkAuthorized(token)
   NewsService.updateReadNews(req.body.ids, authData)
-  res.status(200)
+  res.status(204)
 })
 
 
@@ -51,13 +51,13 @@ router.put<{}, any, any, UpdateNewsRequest>('/', (req, res) => {
   res.status(201).json({id})
 })
 
-router.put<{id: number}, any, any, UpdateNewsRequest>('/:id', (req, res) => {
+router.post<{id: number}, any, any, UpdateNewsRequest>('/:id', (req, res) => {
   const token = req.header('token')
   const {id} = req.params
   const authData = AuthService.checkAuthorizedWriter(token)
   const body = req.body
   NewsService.updateNews(id, body, authData)
-  res.sendStatus(200)
+  res.sendStatus(204)
 })
 
 router.delete<{id: number}>('/', (req, res) => {
@@ -65,7 +65,7 @@ router.delete<{id: number}>('/', (req, res) => {
   const {id} = req.params
   const authData = AuthService.checkAuthorizedWriter(token)
   NewsService.deleteNews(id, authData)
-  res.sendStatus(200)
+  res.sendStatus(204)
 })
 
 export default router

@@ -22,7 +22,7 @@ router.get('/me', (req, res) => {
   res.status(200).json({me})
 })
 
-router.put<{}, any, any, UpdateMeRequest>('/me', (req, res) => {
+router.post<{}, any, any, UpdateMeRequest>('/me', (req, res) => {
   const token = req.header('token')
   const authData = AuthService.checkAuthorized(token)
   const body = req.body

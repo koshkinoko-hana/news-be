@@ -28,16 +28,17 @@ export default class NewsService {
 
   public static getNewsByUser(userId: number) {
     const user = Storage.users.get(userId)
+    if (!user) {
+      throw new createHttpError.NotFound()
+    }
     const news = Storage.publishedNews
-      .filter(item => user.tags.find(tag => item.tags.has(tag)))
-      .filter(item => !user.readNewsList.has(item.id))
+      .filter(item => !user.myNewsList.includes(item.id))
       .map(item => {
-      const author = Storage.users.get(item.author)
       return new NewsResponse({
         ...item,
-        authorNickname: author.nickname,
-        authorFirstName: author.firstName,
-        authorLastName: author.lastName,
+        authorNickname: user.nickname,
+        authorFirstName: user.firstName,
+        authorLastName: user.lastName,
         tags: [...item.tags]
       })
     })
@@ -92,7 +93,7 @@ export default class NewsService {
         tags: [...item.tags]
       })
     })
-    return [res, {offset, limit, total: news.length}]
+    return {list: res, offset, limit, total: news.length}
   }
 
   public static createNews(req: UpdateNewsRequest, auth: AuthData) {

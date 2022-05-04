@@ -1,8 +1,9 @@
 import GetUsersAdminResponse from '../dto/get-users-admin.response'
 import UpdateNewsRequest from '../dto/update-news.request'
-import { AuthData } from '../entities/AuthData'
-import { State } from '../entities/News'
+import {AuthData, Role} from '../entities/AuthData'
+import {State} from '../entities/News'
 import Storage from './storage'
+import createHttpError from 'http-errors'
 
 export default class AdminService {
   public static getUsers() {
@@ -15,8 +16,15 @@ export default class AdminService {
     return users
   }
 
-  public static updateUserRole(id: number, role: number) {
+  public static updateUserRole(id: number, roleString: string) {
     const user = [...Storage.authorities.values()].find(auth => auth.userId === id)
+    if (!user) {
+      throw new createHttpError.NotFound()
+    }
+    const role = Object.values(Role).find((item) => typeof item=== 'number' && Role[item] === roleString)
+    if (typeof role !== 'number') {
+      throw new createHttpError.BadRequest('Role does not exist')
+    }
     user.role = role
   }
 

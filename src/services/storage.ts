@@ -106,7 +106,7 @@ export default class Storage {
                 nickname: 'reader',
                 tags: [],
                 readNewsList: new Set<number>(),
-                myNewsList: news
+                myNewsList: []
             }
         )
         this.authorities.set(
