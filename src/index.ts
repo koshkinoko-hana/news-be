@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors';
 import auth from './controllers/auth.controller'
 import news from './controllers/news.controller'
 import user from './controllers/user.controller'
@@ -13,6 +14,8 @@ import {swaggerDocument} from './swagger'
 const port = 3000
 
 Storage.init()
+
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
