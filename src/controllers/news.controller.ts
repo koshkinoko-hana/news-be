@@ -43,7 +43,7 @@ router.get<GetNewsRequest>('/', (req, res) => {
   res.status(200).json({news})
 })
 
-router.put<{}, any, any, UpdateNewsRequest>('/', (req, res) => {
+router.post<{}, any, any, UpdateNewsRequest>('/', (req, res) => {
   const token = req.header('token')
   const authData = AuthService.checkAuthorizedWriter(token)
   const body = req.body
@@ -51,7 +51,7 @@ router.put<{}, any, any, UpdateNewsRequest>('/', (req, res) => {
   res.status(201).json({id})
 })
 
-router.post<{id: number}, any, any, UpdateNewsRequest>('/:id', (req, res) => {
+router.put<{id: number}, any, any, UpdateNewsRequest>('/:id', (req, res) => {
   const token = req.header('token')
   const {id} = req.params
   const authData = AuthService.checkAuthorizedWriter(token)
