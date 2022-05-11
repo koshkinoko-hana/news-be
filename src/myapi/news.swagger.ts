@@ -32,10 +32,8 @@ export const news = {
         {
             'in': 'query',
             'name': 'tags',
-            'type': 'array',
-            'items': {
-                'type': 'string'
-            }
+            'type': 'string',
+            'description': 'tags separated by comma, example: "news, games"',
         },
         {
             'in': 'query',
@@ -56,11 +54,13 @@ export const news = {
             'in': 'query',
             'name': 'offset',
             'type': 'number',
+            'description': 'offset from first news item in the list, e.g. if offset=10, then news0, ... news9 will be skipped'
         },
         {
             'in': 'query',
             'name': 'limit',
             'type': 'number',
+            'description': 'count of news awaited'
         },
     ],
     responses: {

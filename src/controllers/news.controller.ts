@@ -35,10 +35,10 @@ router.post<{}, any, any, {ids: string}>('/read', (req, res) => {
 })
 
 
-router.get<GetNewsRequest>('/', (req, res) => {
+router.get<any, any, any, any, GetNewsRequest>('/', (req, res) => {
   const token = req.header('token')
   const authData = AuthService.checkAuthorized(token)
-  const params = req.params
+  const params = req.query
   const news = NewsService.getNewsFilteredPaginated(params, authData)
   res.status(200).json({news})
 })
