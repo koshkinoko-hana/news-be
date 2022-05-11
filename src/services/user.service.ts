@@ -1,7 +1,7 @@
 import UpdateMeRequest from '../dto/update-me.request'
 import GetAuthorResponse from '../dto/get-author.response'
 import GetMeResponse from '../dto/get-me.response'
-import { AuthData, Role } from '../entities/AuthData'
+import {AuthData, getRole, Role} from '../entities/AuthData'
 import User from '../entities/User'
 import Storage from './storage'
 
@@ -10,7 +10,7 @@ export default class UserService {
     const user = Storage.users.get(authData.userId)
     return new GetMeResponse({
       ...user,
-      role: authData.role
+      role: getRole(authData.role)
     })
   }
   public static updateMe(req: UpdateMeRequest, authData: AuthData) {
