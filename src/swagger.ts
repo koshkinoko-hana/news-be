@@ -185,7 +185,7 @@ export const swaggerDocument = {
     ],
     paths: {
         '/auth/signup': {
-            'put': signup
+            'post': signup
         },
         '/auth/login': {
             'post': login
@@ -195,10 +195,10 @@ export const swaggerDocument = {
         },
         '/news/': {
             'get': news,
-            'put': createNews,
+            'post': createNews,
         },
         '/news/{id}': {
-            'post': updateNews,
+            'put': updateNews,
             'delete': deleteNews,
         },
         '/news/my': {
