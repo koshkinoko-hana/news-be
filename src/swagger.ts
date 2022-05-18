@@ -1,6 +1,6 @@
 import {login, logout, signup} from './myapi/auth.swagger'
 import {allNews, createNews, deleteNews, myNews, news, read, tags, updateNews} from './myapi/news.swagger'
-import {authors, me, updateMe} from './myapi/user.swagger'
+import {authors, me, updateMe, updateMyTags} from './myapi/user.swagger'
 import {
     adminNewsDelete, adminNewsTagsUpdate,
     adminNewsUpdate,
@@ -118,12 +118,6 @@ export const swaggerDocument = {
                     'phone': {
                         'type': 'string'
                     },
-                    'tags': {
-                        'type': 'array',
-                            'items': {
-                            'type': 'string'
-                        }
-                    },
                     'showFirstName': {
                         'type': 'boolean',
                     },
@@ -218,7 +212,10 @@ export const swaggerDocument = {
         },
         '/user/me': {
             'get': me,
-            'post': updateMe
+            'put': updateMe
+        },
+        '/user/me/tags': {
+            'put': updateMyTags
         },
         '/admin/users': {
             'get': adminUsers
@@ -227,15 +224,15 @@ export const swaggerDocument = {
             'get': adminUserNews,
         },
         '/admin/user/{id}': {
-            'post': adminUserUpdate,
+            'put': adminUserUpdate,
             'delete': adminUserDelete
         },
         '/admin/news/{id}': {
-            'post': adminNewsUpdate,
+            'put': adminNewsUpdate,
             'delete': adminNewsDelete
         },
         '/admin/news/tags': {
-            'post': adminNewsTagsUpdate,
+            'put': adminNewsTagsUpdate,
         },
     },
 }

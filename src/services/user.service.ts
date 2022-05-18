@@ -4,6 +4,7 @@ import GetMeResponse from '../dto/get-me.response'
 import {AuthData, getRole, Role} from '../entities/AuthData'
 import User from '../entities/User'
 import Storage from './storage'
+import createHttpError from 'http-errors'
 
 export default class UserService {
   public static getMe(authData: AuthData) {
@@ -16,11 +17,10 @@ export default class UserService {
   public static updateMe(req: UpdateMeRequest, authData: AuthData) {
     let user: User
     if(!authData.userId) {
-      user = new User(req)
+      user = new User({...req, tags: []})
       authData.userId = Storage.addUser(user)
     } else {
       user = Storage.users.get(authData.userId)
-      user.tags = req.tags
       user.firstName = req.firstName
       user.lastName = req.lastName
       user.nickname = req.nickname
@@ -30,6 +30,16 @@ export default class UserService {
       user.showPhone = req.showPhone
     }
     return authData.userId
+  }
+
+  public static updateMyTags(tags: string[], authData: AuthData) {
+    let user: User
+    if(!authData.userId) {
+      throw new createHttpError.NotFound('User not found!')
+    } else {
+      user = Storage.users.get(authData.userId)
+      user.tags = tags
+    }
   }
 
   public static getAuthors() {

@@ -37,6 +37,12 @@ export const news = {
         },
         {
             'in': 'query',
+            'name': 'noTagsNoNews',
+            'type': 'boolean',
+            'description': 'if true, then news will be filtered by empty tags (you get empty list if tags are empty)'
+        },
+        {
+            'in': 'query',
             'name': 'onlyNew',
             'type': 'boolean',
         },
@@ -144,6 +150,8 @@ export const tags = {
             },
         },
     },
+// @ts-ignore
+    security: [ { apiKeyAuth: [] } ],
 }
 
 export const read = {

@@ -10,8 +10,18 @@ router.use(function timeLog(req, res, next) {
 })
 
 router.get('/authors', (req, res) => {
+  const token = req.header('token')
+  AuthService.checkAuthorized(token)
   const authors = UserService.getAuthors()
   res.status(200).json(authors)
+})
+
+router.put<{}, any, any, string[]>('/me/tags', (req, res) => {
+  const token = req.header('token')
+  const authData = AuthService.checkAuthorized(token)
+  const tags = req.body
+  UserService.updateMyTags(tags, authData)
+  res.sendStatus(204)
 })
 
 router.get('/me', (req, res) => {

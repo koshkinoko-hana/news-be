@@ -3,6 +3,7 @@ export type GetNewsRequest = NewsFilter & NewsSortBy & Pagination
 
 export interface NewsFilter {
   tags?: string
+  noTagsNoNews?: boolean
   onlyNew?: string
   author?: string
   header?: string
