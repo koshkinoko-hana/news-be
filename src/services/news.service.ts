@@ -101,7 +101,7 @@ export default class NewsService {
       ...req,
       author: auth.userId,
       tags: new Set(req.tags),
-      publicationDate: req.publicationDate ?? (req.state === State.published && new Date())
+      publicationDate: new Date(req.publicationDate) ?? (req.state === State.published && new Date())
     })
     const id = Storage.addNews(news)
     const user = Storage.users.get(auth.userId)
@@ -115,7 +115,7 @@ export default class NewsService {
       throw new createHttpError.NotFound()
     }
     oldNews.tags = new Set(req.tags)
-    oldNews.publicationDate = req.publicationDate ?? (oldNews.state === State.draft && req.state === State.published && new Date())
+    oldNews.publicationDate = new Date(req.publicationDate) ?? (oldNews.state === State.draft && req.state === State.published && new Date())
     oldNews.state = req.state
     oldNews.header = req.header
     oldNews.description = req.description

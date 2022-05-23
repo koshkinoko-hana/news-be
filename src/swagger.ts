@@ -45,6 +45,9 @@ export const swaggerDocument = {
             'News': {
                 'type': 'object',
                 'properties': {
+                    'id': {
+                        'type': 'number',
+                    },
                     'header': {
                         'type': 'string',
                     },

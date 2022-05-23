@@ -191,7 +191,7 @@ export const read = {
 
 export const createNews = {
     tags: ['News'],
-    description: `Create news. Allowed for author and admin roles only.`,
+    description: `Create news. Allowed for author and admin roles only. Send date in timestamp for correct parsing`,
     operationId: 'newsCreate',
     requestBody: {
         'content': {
