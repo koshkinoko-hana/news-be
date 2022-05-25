@@ -75,6 +75,9 @@ export const swaggerDocument = {
             'User': {
                 'type': 'object',
                 'properties': {
+                    'id': {
+                        'type': 'number',
+                    },
                     'firstName': {
                         'type': 'string',
                     },
@@ -135,6 +138,9 @@ export const swaggerDocument = {
             'UserAdmin': {
                 'type': 'object',
                 'properties': {
+                    'id': {
+                        'type': 'number',
+                    },
                     'firstName': {
                         'type': 'string',
                     },
