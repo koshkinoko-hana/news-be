@@ -122,11 +122,11 @@ export default class NewsService {
   }
 
   public static deleteNews(id: number, auth: AuthData) {
-    const news = Storage.news.find(item => item.id===id)
+    const news = Storage.news.find(item => item.id === id)
     if(news.author !== auth.userId && auth.role < Role.admin) {
       throw new createHttpError.NotFound()
     }
-    if(news.state === State.published || auth.role < Role.admin) {
+    if(news.state === State.published || auth.role !== Role.writer) {
       throw new createHttpError.Forbidden()
     }
     Storage.news = Storage.news.filter(item => item.id === id)

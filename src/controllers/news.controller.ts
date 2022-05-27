@@ -64,9 +64,9 @@ router.put<{id: number}, any, any, UpdateNewsRequest>('/:id', (req, res) => {
   res.sendStatus(204)
 })
 
-router.delete<{id: number}>('/', (req, res) => {
+router.delete<{id: number}>('/:id', (req, res) => {
   const token = req.header('token')
-  const {id} = req.params
+  const id = Number(req.params.id)
   const authData = AuthService.checkAuthorizedWriter(token)
   NewsService.deleteNews(id, authData)
   res.sendStatus(204)
