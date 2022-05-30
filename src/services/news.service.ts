@@ -32,7 +32,7 @@ export default class NewsService {
       throw new createHttpError.NotFound()
     }
     const news = Storage.publishedNews
-      .filter(item => !user.myNewsList.includes(item.id))
+      .filter(item => user.myNewsList.includes(item.id))
       .map(item => {
       return new NewsResponse({
         ...item,
