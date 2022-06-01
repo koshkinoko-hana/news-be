@@ -1,6 +1,7 @@
 import { State } from '../entities/News'
 
 export default class GetMyNewsResponse {
+  id: number
   header: string
   description: string
   tags: string[]
