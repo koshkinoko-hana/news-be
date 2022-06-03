@@ -9,6 +9,7 @@ export default class GetMyNewsResponse {
   publicationDate?: Date
 
   constructor(props: GetMyNewsResponse) {
+    this.id = props.id
     this.header = props.header
     this.description = props.description
     this.tags = props.tags
